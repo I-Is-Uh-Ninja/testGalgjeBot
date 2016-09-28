@@ -5,19 +5,11 @@
  */
 package woordbot;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Deze klasse zorgt voor het inlezen van een text-file met woorden, en het zoeken naar een woord in de file
@@ -27,9 +19,29 @@ import java.util.logging.Logger;
  */
 public class WoordlijstProcessor {
     private static File woordenlijst;
+    private int aantalWoorden;
+    private String[] woorden;
 
     public WoordlijstProcessor() {
         woordenlijst = new File("woordenlijst.txt");
+        aantalWoorden = telWoorden();
+        woorden = zetWoordenInArray(aantalWoorden);
+    }
+
+    public int getAantalWoorden() {
+        return this.aantalWoorden;
+    }
+
+    public void setAantalWoorden(int aantalWoorden) {
+        this.aantalWoorden = aantalWoorden;
+    }
+
+    public String[] getWoorden() {
+        return this.woorden;
+    }
+
+    public void setWoorden(String[] woorden) {
+        this.woorden = woorden;
     }
     
     //tool om een korte woordenlijst te genereren, die alleen woorden heeft van min tot max aantal letters
@@ -54,7 +66,7 @@ public class WoordlijstProcessor {
         }
     }
     //tel het aantal woorden in de woordenlijst
-    int telWoorden(){
+    private int telWoorden(){
         int aantalWoorden = 0;
         try(Scanner input = new Scanner(woordenlijst)){
             while(input.hasNextLine()){
@@ -67,6 +79,28 @@ public class WoordlijstProcessor {
         }
         return 0;
     }
+    
+    private String[] zetWoordenInArray(int aantalWoorden){
+    	System.out.println("Het aantal woorden is: " + aantalWoorden);
+    	String[] woorden = new String[aantalWoorden];
+    	try(Scanner input = new Scanner(woordenlijst)){
+    		int index = 0;
+            while(input.hasNextLine()){
+                woorden[index] = input.nextLine();
+                index++;
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println("Bestand niet gevonden: " + ex.getMessage());
+        }
+    	return woorden;
+    }
+    
+    public String kiesRandomWoord(){
+    	int randomIndex = (int) (Math.random() * aantalWoorden);//dit bepaald het random woord, de int die gegenereerd is staat voor het # van het woord in de lijst
+    	return woorden[randomIndex];
+    }
+    
+    /*
     //zoek een woord op een bepaald lijnnummer (dit is nodig voor een random woord kiezen)
     public String zoekWoord(int lijnNummer){
         try(Scanner input = new Scanner(woordenlijst);){
@@ -90,4 +124,5 @@ public class WoordlijstProcessor {
             return null;
         }
     }
+    */
 }

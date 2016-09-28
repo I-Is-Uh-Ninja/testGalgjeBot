@@ -36,6 +36,7 @@ public class RaadHandler {
             System.out.println("Aantal fouten: " + this.fouten + "/10");
             if(this.fouten >= 10){
                 System.out.println("Maximaal aantal fouten gemaakt. Je hebt verloren!");
+                System.out.println("Het goede woord was: " + woordBot.getWoord());
                 this.finished = true;
             }
             else {

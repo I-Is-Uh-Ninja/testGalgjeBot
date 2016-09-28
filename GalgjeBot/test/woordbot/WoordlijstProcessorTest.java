@@ -21,9 +21,9 @@ public class WoordlijstProcessorTest {
     
     public WoordlijstProcessorTest() {
         System.out.println("decreaseList");
-        File file = new File("dictsmaller.txt");
+        File file = new File("dictionary.txt");
         int min = 3;
-        int max = 8;
+        int max = 12;
         WoordlijstProcessor.decreaseList(file, min, max);
         woordenlijst = new File("woordenlijst.txt");
     }
@@ -42,14 +42,5 @@ public class WoordlijstProcessorTest {
         assertTrue(woordenlijst.exists());
     }
 
-    @Test
-    public void testZoekWoord() {
-        System.out.println("zoekWoord");
-        int lijnNummer = 1;
-        WoordlijstProcessor instance = new WoordlijstProcessor();
-        String expResult = "aan";
-        String result = instance.zoekWoord(lijnNummer);
-        assertEquals(expResult, result);
-    }
     
 }
